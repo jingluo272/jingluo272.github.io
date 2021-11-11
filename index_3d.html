@@ -1,0 +1,138 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-04-14 13:39:56
+ * @LastEditTime: 2021-04-16 10:10:49
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \TweenMax蓝色梦幻海洋网页特效\index_3d.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <bgsound src="mp3/1.mp3" autostart=true loop=infinite> 
+  <head>
+    <meta charset="UTF-8" />
+    <title>梦幻海洋</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/style0.css" />
+  </head>
+
+  <body style="text-align:center">
+    <!-- <audio src="mp3/1.mp3" autoplay="autoplay" loop="loop"></audio> -->
+    <!-- 荧光S -->
+    <div class="container">
+      <!-- 打字 -->
+      <div class="typing">
+        <!-- 字幕 -->
+        <h2 class="header-sub-title" id="word"></h2>
+        <h2 class="header-sub-title blink">|</h2>
+      </div>
+      <audio controls autoplay><source src="mp3/星辰大海-黄霄雲-162169278.aac" /></audio>
+      <!-- 相册 -->
+      <div class="box">
+        <ul class="minbox">
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <ol class="maxbox">
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ol>
+      </div>
+    </div>
+
+    <script src="js/jquery.min_3d.js"></script>
+    <script src="js/TweenMax.min.js"></script>
+    <script src="js/index_3d.js"></script>
+
+    <script>
+      /* 兼容H5 手机端 */
+      if (
+        navigator.userAgent.match(
+          /(phone|pod|iPhone|iPod|ios|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i
+        )
+      ) {
+        var box = document.querySelectorAll(".box")[0];
+        console.log(box, "移动端");
+        box.style.left = "42%";
+      }
+      // --------------------打印字 S--------------------------
+      const words = [
+        "❤ 雨榕~",
+        "❤ 嘻嘻~",
+        "❤ 生日快乐呀~",
+        "❤ 祝你快乐，不止生日",
+        "❤ 我会在每个有意义的时刻，远隔山海，与你同在",
+        "❤ 生活明朗，万物可爱，人间值得，未来可期",
+        "❤ 一起变优秀，祝你也祝我",
+        "❤ 六级必过，考研必胜！！！",
+        "❤ 冲冲冲~",
+        "❤ ~",
+      ];
+      let PPP = 0;
+      let timer;
+      // speed in ms
+      let deleteDelay = 3000;
+      let typeSpeed = 100;
+      let delSpeed = 50;
+      /* 开始编写文字 */
+      function typingEffect() {
+        console.log(i, "iiii");
+        console.log(words[PPP], "words[i]");
+        let word = words[PPP].split("");
+        var loopTyping = function () {
+          if (word.length > 0) {
+            document.getElementById("word").innerHTML += word.shift();
+          } else {
+            delay(function () {
+              deletingEffect(); // do stuff
+            }, deleteDelay); // end delay
+            // deletingEffect();
+            return false;
+          }
+          timer = setTimeout(loopTyping, typeSpeed);
+        };
+        loopTyping();
+      }
+
+      function deletingEffect() {
+        let word = words[PPP].split("");
+        var loopDeleting = function () {
+          if (word.length > 0) {
+            word.pop();
+            document.getElementById("word").innerHTML = word.join("");
+          } else {
+            if (words.length > PPP + 1) {
+              PPP++;
+            } else {
+              PPP = 0;
+            }
+            typingEffect();
+            return false;
+          }
+
+          timer = setTimeout(loopDeleting, delSpeed);
+        };
+
+        loopDeleting();
+      }
+
+      var delay = (function () {
+        var timer = 0;
+        return function (callback, ms) {
+          clearTimeout(timer);
+          timer = setTimeout(callback, ms);
+        };
+      })();
+      typingEffect();
+      // --------------------打印字 E--------------------------
+    </script>
+  </body>
+</html>
